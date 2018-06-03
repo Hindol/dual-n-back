@@ -17,7 +17,7 @@ class App extends React.Component {
         <Container>
           <Row>
             <Col xs={{size: 6, offset: 3}}>
-              <Grid rows={3} columns={3}/>
+              <Grid rows={3} columns={4}/>
             </Col>
           </Row>
         </Container>

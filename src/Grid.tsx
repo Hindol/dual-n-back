@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Col, Row } from 'reactstrap';
+import './Grid.css';
 
 export interface IProps {
     columns: number;
@@ -14,18 +14,20 @@ class Grid extends React.Component<IProps, object> {
             const columns = [];
             for (let j = 0; j < this.props.columns; ++j) {
                 columns.push(
-                    <Col key={j + 1}>{i * this.props.columns + j + 1}</Col>
+                    <div className={"grid-cell grid-" + Math.floor(100 / this.props.columns)} key={j + 1}>
+                        <div className="square one square-100">{i * this.props.columns + j + 1}</div>
+                    </div>
                 );
             }
             rows.push(
-                <Row key={i + 1}>
+                <div className="grid" key={i + 1}>
                     {columns}
-                </Row>
+                </div>
             );
         }
 
         return (
-            <div id="grid">
+            <div className="grid-container">
                 {rows}
             </div>
         );
