@@ -1,6 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as React from 'react';
+import { Col, Container, Row } from 'reactstrap';
 import './App.css';
+import Grid from './Grid';
 
 import logo from './logo.svg';
 
@@ -12,9 +14,13 @@ class App extends React.Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
+        <Container>
+          <Row>
+            <Col xs={{size: 6, offset: 3}}>
+              <Grid rows={3} columns={3}/>
+            </Col>
+          </Row>
+        </Container>
       </div>
     );
   }
