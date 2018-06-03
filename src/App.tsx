@@ -6,7 +6,22 @@ import Grid from './Grid';
 
 import logo from './logo.svg';
 
-class App extends React.Component {
+export interface IState {
+  gridSize: number,
+}
+
+class App extends React.Component<{}, IState> {
+
+  constructor(props: any) {
+    super(props);
+
+    this.state = {
+      gridSize: 3,
+    };
+
+    this.setGridSize = this.setGridSize.bind(this);
+  }
+
   public render() {
     return (
       <div className="App">
@@ -16,13 +31,21 @@ class App extends React.Component {
         </header>
         <Container>
           <Row>
-            <Col xs={{size: 6, offset: 3}}>
-              <Grid rows={3} columns={4}/>
+            <Col xs="3">
+              <input type="range" min="3" max="5" className="slider" value={this.state.gridSize} onInput={this.setGridSize} onChange={this.setGridSize} />
             </Col>
+            <Col xs="6">
+              <Grid rows={this.state.gridSize} columns={this.state.gridSize} />
+            </Col>
+            <Col xs="3">Right sidebar</Col>
           </Row>
         </Container>
       </div>
     );
+  }
+
+  private setGridSize(e: any) {
+    this.setState({ gridSize: e.target.value });
   }
 }
 
