@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import * as React from 'react';
 import { Col, Container, Row } from 'reactstrap';
 import './App.css';
-import Grid from './Grid';
+import Game from './Game';
 
 import logo from './logo.svg';
 
@@ -35,7 +35,7 @@ class App extends React.Component<{}, IState> {
               <input type="range" min="3" max="5" className="slider" value={this.state.gridSize} onInput={this.setGridSize} onChange={this.setGridSize} />
             </Col>
             <Col xs="6">
-              <Grid rows={this.state.gridSize} columns={this.state.gridSize} />
+              <Game rows={this.state.gridSize} columns={this.state.gridSize} />
             </Col>
             <Col xs="3">Right sidebar</Col>
           </Row>

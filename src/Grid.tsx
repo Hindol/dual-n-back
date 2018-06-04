@@ -4,6 +4,7 @@ import './Grid.css';
 export interface IProps {
     columns: number;
     rows: number;
+    highlight?: [number, number];
 }
 
 class Grid extends React.Component<IProps, object> {
@@ -13,9 +14,13 @@ class Grid extends React.Component<IProps, object> {
         for (let i = 0; i < this.props.rows; ++i) {
             const columns = [];
             for (let j = 0; j < this.props.columns; ++j) {
+                const classNames = ['square', 'square-100'];
+                if (this.props.highlight && this.props.highlight[0] === i && this.props.highlight[1] === j) {
+                    classNames.push('one');
+                }
                 columns.push(
                     <div className={"grid-cell grid-" + Math.floor(100 / this.props.columns)} key={j + 1}>
-                        <div className="square one square-100">{i * this.props.columns + j + 1}</div>
+                        <div className={classNames.join(' ')}>{i * this.props.columns + j + 1}</div>
                     </div>
                 );
             }
