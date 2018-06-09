@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Button } from 'reactstrap';
 import Board from './Board';
 import Flash from './Flash';
 import Grid from './Grid';
@@ -39,6 +40,8 @@ class Game extends React.Component<IProps, IState> {
             running: this.props.running,
         }
 
+        this.tryPosition = this.tryPosition.bind(this);
+        this.trySound = this.trySound.bind(this);
         this.onFlash = this.onFlash.bind(this);
     }
 
@@ -59,7 +62,6 @@ class Game extends React.Component<IProps, IState> {
     }
 
     public render() {
-        console.log('Game.render() called!');
         const props: any = {};
         let optionalAudio;
         if (this.state.currentFlash) {
@@ -73,12 +75,21 @@ class Game extends React.Component<IProps, IState> {
             <div>
                 <Grid rows={this.state.board.rows} columns={this.state.board.columns} {...props} />
                 {optionalAudio}
+                <Button color="secondary" disabled={!this.state.running} onClick={this.tryPosition}>Position</Button>
+                <Button color="secondary" disabled={!this.state.running} onClick={this.trySound}>Sound</Button>
             </div>
         );
     }
 
+    private tryPosition() {
+        this.state.board.samePosition();
+    }
+
+    private trySound() {
+        this.state.board.sameSound();
+    }
+
     private onFlash(newFlash: Flash) {
-        console.log('New flash generated!');
         this.setState({ currentFlash: newFlash });
     }
 }

@@ -1,3 +1,4 @@
+import * as _ from "lodash";
 import Flash from "./Flash";
 
 class Board {
@@ -27,13 +28,42 @@ class Board {
         delete this.timerToken;
     }
 
+    public samePosition() {
+        if (this.history.length > 1 && _.isEqual(this.history[this.history.length - 1].position, this.history[this.history.length - 2].position)) {
+            console.log('Correct!');
+        } else {
+            console.log('Wrong!');
+        }
+    }
+
+    public sameSound() {
+        if (this.history.length > 1 && _.isEqual(this.history[this.history.length - 1].sound, this.history[this.history.length - 2].sound)) {
+            console.log('Correct!');
+        } else {
+            console.log('Wrong!');
+        }
+    }
+
     private next() {
-        const randomRow = this.randomInRange(0, this.rows - 1);
-        const randomColumn = this.randomInRange(0, this.columns - 1);
-        const randomSound = this.randomInRange(1, 9);
-        const newFlash = new Flash([randomRow, randomColumn], randomSound);
-        this.history.push(newFlash);
-        return newFlash;
+        const nextFlash: any = {};
+
+        if (this.history.length > 0 && this.randomInRange(1, 100) <= 25) {
+            nextFlash.position = this.history[this.history.length - 1].position;
+        } else {
+            const randomRow = this.randomInRange(0, this.rows - 1);
+            const randomColumn = this.randomInRange(0, this.columns - 1);
+            nextFlash.position = [randomRow, randomColumn];
+        }
+
+        if (this.history.length > 0 && this.randomInRange(1, 100) <= 25) {
+            nextFlash.sound = this.history[this.history.length - 1];
+        } else {
+            const randomSound = this.randomInRange(1, 9);
+            nextFlash.sound = randomSound;
+        }
+
+        this.history.push(nextFlash);
+        return nextFlash;
     }
 
     private randomInRange(min: number, max: number) {
