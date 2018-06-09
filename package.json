@@ -6,6 +6,7 @@
     "ajv": "^6.5.0",
     "bootstrap": "^4.1.1",
     "jquery": "^3.3.1",
+    "lodash": "^4.17.10",
     "popper.js": "^1.14.3",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
@@ -19,6 +20,7 @@
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.109",
     "@types/reactstrap": "^5.0.27",
     "@types/jest": "^23.0.0",
     "@types/node": "^10.3.0",
