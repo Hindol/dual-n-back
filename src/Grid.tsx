@@ -10,6 +10,8 @@ export interface IProps {
 class Grid extends React.Component<IProps, object> {
 
     public render() {
+        console.log('Grid.render() called!');
+        console.log(this.props);
         const rows = [];
         for (let i = 0; i < this.props.rows; ++i) {
             const columns = [];

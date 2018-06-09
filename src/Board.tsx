@@ -2,24 +2,29 @@ import Flash from "./Flash";
 
 class Board {
     private timerToken?: number;
-    private onFlash: (flash: Flash) => void;
+    private onFlash?: (flash: Flash) => void;
     private readonly history: Flash[];
 
     constructor(
-        private readonly rows: number,
-        private readonly columns: number
+        public readonly rows: number,
+        public readonly columns: number
     ) {
         this.history = [];
     }
 
     public start(onFlash: (flash: Flash) => void) {
         this.onFlash = onFlash;
-        this.timerToken = window.setInterval(() => this.onFlash(this.next()), 2500);
+
+        // window.setTimeout(() => {
+        //     onFlash(this.next());
+        // }, 10000);
+        this.timerToken = window.setInterval(() => onFlash(this.next()), 2500);
     }
 
     public stop() {
         clearInterval(this.timerToken);
         delete this.onFlash;
+        delete this.timerToken;
     }
 
     private next() {

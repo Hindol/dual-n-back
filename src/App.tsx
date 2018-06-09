@@ -1,13 +1,14 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as React from 'react';
-import { Col, Container, Row } from 'reactstrap';
+import { Button, Col, Container, Row } from 'reactstrap';
 import './App.css';
 import Game from './Game';
 
 import logo from './logo.svg';
 
 export interface IState {
-  gridSize: number,
+  gameRunning: boolean;
+  gridSize: number;
 }
 
 class App extends React.Component<{}, IState> {
@@ -16,10 +17,12 @@ class App extends React.Component<{}, IState> {
     super(props);
 
     this.state = {
+      gameRunning: false,
       gridSize: 3,
     };
 
     this.setGridSize = this.setGridSize.bind(this);
+    this.setPlay = this.setPlay.bind(this);
   }
 
   public render() {
@@ -35,9 +38,11 @@ class App extends React.Component<{}, IState> {
               <input type="range" min="3" max="5" className="slider" value={this.state.gridSize} onInput={this.setGridSize} onChange={this.setGridSize} />
             </Col>
             <Col xs="6">
-              <Game rows={this.state.gridSize} columns={this.state.gridSize} />
+              <Game rows={this.state.gridSize} columns={this.state.gridSize} running={this.state.gameRunning} />
             </Col>
-            <Col xs="3">Right sidebar</Col>
+            <Col xs="3">
+              <Button color="primary" onClick={this.setPlay}>Play</Button>
+            </Col>
           </Row>
         </Container>
       </div>
@@ -46,6 +51,10 @@ class App extends React.Component<{}, IState> {
 
   private setGridSize(e: any) {
     this.setState({ gridSize: e.target.value });
+  }
+
+  private setPlay(e: any) {
+    this.setState({ gameRunning: true });
   }
 }
 
