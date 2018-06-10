@@ -2,15 +2,20 @@ import * as _ from "lodash";
 import Flash from "./Flash";
 
 class Board {
+
+    public onScoreChange?: (prevScore: number, nextScore: number) => void;
+
     private timerToken?: number;
     private onFlash?: (flash: Flash) => void;
     private readonly history: Flash[];
+    private score: number;
 
     constructor(
         public readonly rows: number,
         public readonly columns: number
     ) {
         this.history = [];
+        this.score = 0;
     }
 
     public start(onFlash: (flash: Flash) => void) {
@@ -30,17 +35,17 @@ class Board {
 
     public samePosition() {
         if (this.history.length > 1 && _.isEqual(this.history[this.history.length - 1].position, this.history[this.history.length - 2].position)) {
-            console.log('Correct!');
+            this.updateScore(100);
         } else {
-            console.log('Wrong!');
+            this.updateScore(-50);
         }
     }
 
     public sameSound() {
         if (this.history.length > 1 && _.isEqual(this.history[this.history.length - 1].sound, this.history[this.history.length - 2].sound)) {
-            console.log('Correct!');
+            this.updateScore(100);
         } else {
-            console.log('Wrong!');
+            this.updateScore(-50);
         }
     }
 
@@ -64,6 +69,14 @@ class Board {
 
         this.history.push(nextFlash);
         return nextFlash;
+    }
+
+    private updateScore(delta: number) {
+        const newScore: number = this.score + delta;
+        if (this.onScoreChange) {
+            this.onScoreChange(this.score, newScore);
+        }
+        this.score = newScore;
     }
 
     private randomInRange(min: number, max: number) {
