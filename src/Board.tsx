@@ -50,9 +50,10 @@ class Board {
     }
 
     private next() {
+        const p: number = 15;
         const nextFlash: any = {};
 
-        if (this.history.length > 0 && this.randomInRange(1, 100) <= 25) {
+        if (this.history.length > 0 && this.randomInRange(1, 100) <= p) {
             nextFlash.position = this.history[this.history.length - 1].position;
         } else {
             const randomRow = this.randomInRange(0, this.rows - 1);
@@ -60,8 +61,8 @@ class Board {
             nextFlash.position = [randomRow, randomColumn];
         }
 
-        if (this.history.length > 0 && this.randomInRange(1, 100) <= 25) {
-            nextFlash.sound = this.history[this.history.length - 1];
+        if (this.history.length > 0 && this.randomInRange(1, 100) <= p) {
+            nextFlash.sound = this.history[this.history.length - 1].sound;
         } else {
             const randomSound = this.randomInRange(1, 9);
             nextFlash.sound = randomSound;
